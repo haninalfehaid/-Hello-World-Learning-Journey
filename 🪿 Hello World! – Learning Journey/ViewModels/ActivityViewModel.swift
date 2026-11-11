@@ -58,6 +58,23 @@ final class ActivityViewModel {
         progress?.goal.duration.maxFreezes ?? 0
     }
 
+    var historyMonths: [Date] {
+        let calendar = Calendar.gregorianCalendar
+        let firstDate = progress?.logs.map(\.date).min() ?? Date()
+
+        guard let start = calendar.dateInterval(of: .month, for: firstDate)?.start,
+              let end = calendar.dateInterval(of: .month, for: Date())?.start else { return [] }
+
+        var months: [Date] = []
+        var current = start
+        while current <= end {
+            months.append(current)
+            guard let next = calendar.date(byAdding: .month, value: 1, to: current) else { break }
+            current = next
+        }
+        return months
+    }
+
     func startGoal(_ goal: LearningGoal) {
         if progress == nil {
             progress = LearningProgress(goal: goal)

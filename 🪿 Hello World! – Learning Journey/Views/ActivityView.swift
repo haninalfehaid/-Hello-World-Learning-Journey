@@ -53,7 +53,8 @@ struct ActivityView: View {
             Spacer()
 
             HStack(spacing: 8) {
-                Button {
+                NavigationLink {
+                    ActivitiesView(viewModel: viewModel)
                 } label: {
                     Image(systemName: "calendar")
                         .frame(width: 32, height: 32)
