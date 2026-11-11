@@ -53,7 +53,8 @@ struct LearningGoalView: View {
 
     private var canSave: Bool {
         guard let goal = activityViewModel.progress?.goal else { return false }
-        return viewModel.canStart && viewModel.hasChanges(from: goal)
+        let goalEnded = activityViewModel.isGoalCompleted || activityViewModel.isStreakBroken
+        return viewModel.canStart && (viewModel.hasChanges(from: goal) || goalEnded)
     }
 }
 
