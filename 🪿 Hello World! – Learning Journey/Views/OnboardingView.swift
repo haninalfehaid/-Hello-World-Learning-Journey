@@ -25,25 +25,8 @@ struct OnboardingView: View {
             }
             .padding(.top, 48)
 
-            VStack(alignment: .leading, spacing: 12) {
-                Text("I want to learn")
-                    .font(.title3)
-                TextField("Swift", text: $viewModel.subject)
-                    .textInputAutocapitalization(.words)
-                Divider()
-            }
-            .padding(.top, 32)
-
-            VStack(alignment: .leading, spacing: 12) {
-                Text("I want to learn it in a")
-                    .font(.title3)
-                HStack(spacing: 8) {
-                    ForEach(LearningDuration.allCases) { duration in
-                        durationButton(duration)
-                    }
-                }
-            }
-            .padding(.top, 24)
+            GoalFormView(viewModel: viewModel)
+                .padding(.top, 32)
 
             Spacer()
 
@@ -73,22 +56,6 @@ struct OnboardingView: View {
             .foregroundStyle(Color.learningOrange)
             .frame(width: 109, height: 109)
             .glassEffect(.regular.tint(Color.learningOrange.opacity(0.15)), in: .circle)
-    }
-
-    @ViewBuilder
-    private func durationButton(_ duration: LearningDuration) -> some View {
-        if viewModel.duration == duration {
-            Button(duration.rawValue) {
-                viewModel.duration = duration
-            }
-            .buttonStyle(.glassProminent)
-            .tint(Color.learningOrange)
-        } else {
-            Button(duration.rawValue) {
-                viewModel.duration = duration
-            }
-            .buttonStyle(.glass)
-        }
     }
 }
 
