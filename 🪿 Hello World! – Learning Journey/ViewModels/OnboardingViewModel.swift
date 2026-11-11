@@ -10,11 +10,20 @@ import Observation
 
 @Observable
 final class OnboardingViewModel {
-    var subject: String = ""
-    var duration: LearningDuration = .week
+    var subject: String
+    var duration: LearningDuration
+
+    init(goal: LearningGoal? = nil) {
+        subject = goal?.subject ?? ""
+        duration = goal?.duration ?? .week
+    }
 
     var canStart: Bool {
         !subject.trimmingCharacters(in: .whitespaces).isEmpty
+    }
+
+    func hasChanges(from goal: LearningGoal) -> Bool {
+        subject.trimmingCharacters(in: .whitespaces) != goal.subject || duration != goal.duration
     }
 
     func makeGoal() -> LearningGoal {
