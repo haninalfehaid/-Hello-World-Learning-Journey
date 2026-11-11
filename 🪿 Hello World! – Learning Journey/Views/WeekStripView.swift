@@ -26,37 +26,10 @@ struct WeekStripView: View {
 
             HStack {
                 ForEach(days, id: \.self) { day in
-                    dayCircle(for: day)
+                    DayCircleView(day: day, status: status(day))
                         .frame(maxWidth: .infinity)
                 }
             }
-        }
-    }
-
-    private func dayCircle(for day: Date) -> some View {
-        let dayStatus = status(day)
-        let isToday = Calendar.gregorianCalendar.isDateInToday(day)
-
-        return Text("\(day.dayNumber)")
-            .font(.title3.weight(.medium))
-            .foregroundStyle(textColor(for: dayStatus))
-            .frame(width: 44, height: 44)
-            .background(backgroundColor(for: dayStatus, isToday: isToday), in: .circle)
-    }
-
-    private func textColor(for status: DayStatus?) -> Color {
-        switch status {
-        case .learned: return .learningOrange
-        case .frozen: return .freezeBlue
-        case nil: return .primary
-        }
-    }
-
-    private func backgroundColor(for status: DayStatus?, isToday: Bool) -> Color {
-        switch status {
-        case .learned: return .learningOrange.opacity(0.2)
-        case .frozen: return .freezeBlue.opacity(0.2)
-        case nil: return isToday ? .learningOrange : .clear
         }
     }
 }
