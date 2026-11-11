@@ -1,17 +1,22 @@
 import SwiftUI
-import Playgrounds
 
 struct ContentView: View {
+    @State private var viewModel = ActivityViewModel()
+
     var body: some View {
-        Text("Hello, world!")
-            .padding()
+        NavigationStack {
+            if viewModel.hasGoal {
+                ActivityView(viewModel: viewModel)
+            } else {
+                OnboardingView { goal in
+                    viewModel.startGoal(goal)
+                }
+            }
+        }
+        .preferredColorScheme(.dark)
     }
 }
 
 #Preview {
     ContentView()
-}
-
-#Playground {
-    _ = 1 + 2
 }

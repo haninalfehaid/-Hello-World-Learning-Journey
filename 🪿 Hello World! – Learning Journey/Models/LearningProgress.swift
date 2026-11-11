@@ -24,7 +24,8 @@ struct LearningProgress: Codable {
     }
 
     var currentLogs: [DayLog] {
-        logs.filter { $0.date >= goal.startDate }
+        let start = Calendar.gregorianCalendar.startOfDay(for: goal.startDate)
+        return logs.filter { $0.date >= start }
     }
 
     var learnedDays: Int {
