@@ -59,7 +59,8 @@ struct ActivityView: View {
                         .frame(width: 32, height: 32)
                 }
 
-                Button {
+                NavigationLink {
+                    LearningGoalView(activityViewModel: viewModel)
                 } label: {
                     Image(systemName: "pencil.and.outline")
                         .frame(width: 32, height: 32)
@@ -136,5 +137,7 @@ struct ActivityView: View {
     UserDefaults.standard.removeObject(forKey: "learningProgress")
     let viewModel = ActivityViewModel()
     viewModel.startGoal(LearningGoal(subject: "Swift", duration: .week, startDate: Date()))
-    return ActivityView(viewModel: viewModel)
+    return NavigationStack {
+        ActivityView(viewModel: viewModel)
+    }
 }
