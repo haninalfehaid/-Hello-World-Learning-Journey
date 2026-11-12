@@ -39,14 +39,16 @@ struct LearningGoalView: View {
                 .disabled(!canSave)
             }
         }
-        .alert("Update goal", isPresented: $showUpdateAlert) {
-            Button("Dismiss", role: .cancel) {}
-            Button("Update") {
-                activityViewModel.startGoal(viewModel.makeGoal())
-                dismiss()
+        .overlay {
+            if showUpdateAlert {
+                UpdateGoalAlertView(
+                    onDismiss: { showUpdateAlert = false },
+                    onUpdate: {
+                        activityViewModel.startGoal(viewModel.makeGoal())
+                        dismiss()
+                    }
+                )
             }
-        } message: {
-            Text("If you update now, your streak will start over.")
         }
         .preferredColorScheme(.dark)
     }
