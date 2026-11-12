@@ -16,7 +16,7 @@ enum LearningDuration: String, CaseIterable, Codable, Identifiable {
 
     var totalDays: Int {
         switch self {
-        case .week:  return 7
+        case .week:  return 5
         case .month: return 30
         case .year:  return 365
         }
