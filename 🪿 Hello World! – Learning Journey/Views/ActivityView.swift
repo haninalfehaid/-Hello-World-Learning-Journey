@@ -82,7 +82,7 @@ struct ActivityView: View {
 
     private var logButton: some View {
         Button {
-            viewModel.logAsLearned()
+            viewModel.toggleLearned()
         } label: {
             Text(logTitle)
                 .font(.title2.weight(.bold))
@@ -91,31 +91,19 @@ struct ActivityView: View {
                 .glassEffect(.regular.tint(logTint).interactive(), in: .circle)
         }
         .buttonStyle(.plain)
-        .disabled(!viewModel.canLogToday)
+        
     }
 
     private var logTitle: String {
-        switch viewModel.todayStatus {
-        case .learned: return "Logged as Learned"
-        case .frozen: return "Day Freezed"
-        case nil: return "Log as Learned"
-        }
+        viewModel.todayStatus == .learned ? "Logged as Learned" : "Log as Learned"
     }
 
     private var logTint: Color {
-        switch viewModel.todayStatus {
-        case .learned: return .clear
-        case .frozen: return .freezeBlue.opacity(0.2)
-        case nil: return .learningOrange
-        }
+        viewModel.todayStatus == .learned ? .clear : .learningOrange
     }
 
     private var logTextColor: Color {
-        switch viewModel.todayStatus {
-        case .learned: return .secondary
-        case .frozen: return .freezeBlue
-        case nil: return .white
-        }
+        viewModel.todayStatus == .learned ? .secondary : .white
     }
 
     private var freezeButton: some View {

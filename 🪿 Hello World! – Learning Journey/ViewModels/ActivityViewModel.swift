@@ -83,9 +83,13 @@ final class ActivityViewModel {
         }
     }
 
-    func logAsLearned() {
-        guard canLogToday else { return }
-        progress?.logs.append(DayLog(date: Date(), status: .learned))
+    func toggleLearned() {
+        guard !isStreakBroken, !isGoalCompleted else { return }
+        let wasLearned = todayStatus == .learned
+        progress?.logs.removeAll { Calendar.gregorianCalendar.isDateInToday($0.date) }
+        if !wasLearned {
+            progress?.logs.append(DayLog(date: Date(), status: .learned))
+        }
     }
 
     func freezeToday() {
