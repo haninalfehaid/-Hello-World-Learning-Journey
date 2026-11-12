@@ -10,9 +10,22 @@
 		000000000000000000000120 /* 🪿 Hello World! – Learning Journey.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "🪿 Hello World! – Learning Journey.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DDF94D9430A5C5B30080F534 /* Exceptions for "🪿 Hello World! – Learning Journey" folder in "🪿 Hello World! – Learning Journey" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				README.md,
+			);
+			target = 000000000000000100000000 /* 🪿 Hello World! – Learning Journey */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		000000000000000000000010 /* 🪿 Hello World! – Learning Journey */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DDF94D9430A5C5B30080F534 /* Exceptions for "🪿 Hello World! – Learning Journey" folder in "🪿 Hello World! – Learning Journey" target */,
+			);
 			path = "🪿 Hello World! – Learning Journey";
 			sourceTree = "<group>";
 		};
