@@ -39,11 +39,11 @@ final class ActivityViewModel {
     }
 
     var canLogToday: Bool {
-        todayStatus == nil && !isStreakBroken && !isGoalCompleted
+        todayStatus != .learned && !isStreakBroken && !isGoalCompleted
     }
 
     var canFreezeToday: Bool {
-        canLogToday && (progress?.freezesLeft ?? 0) > 0
+        todayStatus != .frozen && !isStreakBroken && !isGoalCompleted && (progress?.freezesLeft ?? 0) > 0
     }
 
     var learnedDays: Int {
@@ -83,18 +83,19 @@ final class ActivityViewModel {
         }
     }
 
-    func toggleLearned() {
-        guard !isStreakBroken, !isGoalCompleted else { return }
-        let wasLearned = todayStatus == .learned
-        progress?.logs.removeAll { Calendar.gregorianCalendar.isDateInToday($0.date) }
-        if !wasLearned {
-            progress?.logs.append(DayLog(date: Date(), status: .learned))
-        }
+    func logAsLearned() {
+        guard canLogToday else { return }
+        setToday(.learned)
     }
 
     func freezeToday() {
         guard canFreezeToday else { return }
-        progress?.logs.append(DayLog(date: Date(), status: .frozen))
+        setToday(.frozen)
+    }
+
+    private func setToday(_ status: DayStatus) {
+        progress?.logs.removeAll { Calendar.gregorianCalendar.isDateInToday($0.date) }
+        progress?.logs.append(DayLog(date: Date(), status: status))
     }
 
     private func save() {

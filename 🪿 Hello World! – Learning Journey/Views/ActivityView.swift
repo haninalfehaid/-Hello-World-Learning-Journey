@@ -23,17 +23,23 @@ struct ActivityView: View {
                 StatCardView(icon: "snowflake", color: .freezeBlue, value: viewModel.frozenDays, title: "Freezed")
             }
 
-            Spacer()
+            if viewModel.isGoalCompleted || viewModel.isStreakBroken {
+                Spacer()
+                GoalEndView(isCompleted: viewModel.isGoalCompleted, activityViewModel: viewModel)
+                Spacer()
+            } else {
+                Spacer()
 
-            logButton
+                logButton
 
-            Spacer()
+                Spacer()
 
-            VStack(spacing: 12) {
-                freezeButton
-                Text("\(viewModel.frozenDays) out of \(viewModel.maxFreezes) Freezes used")
-                    .font(.footnote)
-                    .foregroundStyle(.secondary)
+                VStack(spacing: 12) {
+                    freezeButton
+                    Text("\(viewModel.frozenDays) out of \(viewModel.maxFreezes) Freezes used")
+                        .font(.footnote)
+                        .foregroundStyle(.secondary)
+                }
             }
         }
         .padding(.horizontal, 16)
@@ -82,7 +88,7 @@ struct ActivityView: View {
 
     private var logButton: some View {
         Button {
-            viewModel.toggleLearned()
+            viewModel.logAsLearned()
         } label: {
             Text(logTitle)
                 .font(.title2.weight(.bold))
@@ -91,7 +97,7 @@ struct ActivityView: View {
                 .glassEffect(.regular.tint(logTint).interactive(), in: .circle)
         }
         .buttonStyle(.plain)
-        
+        .disabled(!viewModel.canLogToday)
     }
 
     private var logTitle: String {
